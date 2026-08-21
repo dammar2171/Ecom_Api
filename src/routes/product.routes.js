@@ -7,6 +7,9 @@ const router = express.Router();
 
 router.get("/",productControllers.getAllProducts);
 
+router.get("/brands",productControllers.getBrands);
+router.get("/categories",productControllers.getCategories);
+
 router.get("/:id",productControllers.getProductById)
 
 router.put("/:id", authMiddleware, authRoleBased,productControllers.updateProduct);

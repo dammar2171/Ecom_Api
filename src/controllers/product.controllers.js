@@ -2,13 +2,31 @@ import productServices from "../services/product.services.js"
 
 const getAllProducts = async (req,res) =>{
   try {
-    const products = await productServices.getAllProducts();
+    const products = await productServices.getAllProducts(req.query);
 
     res.status(200).json(products)
   } catch (error) {
-    res.status(400).json({
+    res.status(error.statusCode || 400).json({
       message:"Product fetching problem."
     })
+  }
+}
+  
+const getBrands = async(req,res) =>{
+  try {
+    const brands = await productServices.getBrands();
+    res.status(200).json(brands)
+  } catch (error) {
+    res.status(error.statusCode || 400).json({message:error.message})
+  }
+}
+
+const getCategories = async(req,res) =>{
+  try {
+    const categories = await productServices.getCategories();
+    res.status(200).json(categories)
+  } catch (error) {
+    res.status(error.statusCode || 400).json({message:error.message})
   }
 }
 
@@ -16,15 +34,9 @@ const getProductById = async (req,res) =>{
   
   try {
     const product = await productServices.getProductById(req.params.id);
-
-    if(!product){
-      res.status(404).json({message:"Product not found!"})
-      return;
-    }
-
     res.status(200).json(product)
   } catch (error) {
-    res.status(400).json({
+    res.status(error.statusCode || 400).json({
       message:"Product fetching problem."
     })
   }
@@ -36,7 +48,7 @@ const updateProduct = async(req,res)=>{
 
     res.status(200).json(updatedProduct);
   } catch (error) {
-    res.status(400).json({message:error.message})
+    res.status(error.statusCode || 400).json({message:error.message})
   }
 }
 
@@ -63,4 +75,4 @@ const createProduct = async(req,res)=>{
   }
 }
 
-export default {createProduct,getAllProducts,getProductById,updateProduct,deleteProduct};
+export default {createProduct,getAllProducts,getProductById,updateProduct,deleteProduct,getBrands,getCategories};

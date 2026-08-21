@@ -39,13 +39,20 @@
 - delete multiple data at once
 
 ## Query operation
-- $gt : greater than
+- $gt : greater than eg: db.user.find({$age: {$gte:22}})
 - $lt : less than
 - $gte: greater than or equal to 
 - $lte: less than or equal to
+- $eq: equal to
 - $ne : not equal to 
 - $in : matches in array
 - $nin: not matches in arrray
+- $or : OR operator eg: db.users.find({$or: [{name:"mina"},{age:22}]})
+- $and: AND operator eg: db.users.find({$and: [{name:"mina"},{age:22}]})
+
+a. limit(): db.users.find().limit(3)
+b. skip(): db.users.find().skip(1)
+c. sort(): db.users.find().sort({name:-1}) -- ASC(1) | DESC(-1)
 
 ## Common update operator
 - $set : set/replace a field value

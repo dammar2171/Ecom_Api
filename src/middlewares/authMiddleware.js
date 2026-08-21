@@ -3,7 +3,10 @@ import config from '../config/config.js';
 
 const authMiddleware = (req,res,next) =>{
   const authHeader = req.headers.cookie;  
-
+  if(!authHeader){
+    res.status(404).json({message:"Token missing!"})
+    return;
+  }
   const token = authHeader.split("=")[1];
 
   if(!token){
