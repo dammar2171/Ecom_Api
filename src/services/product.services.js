@@ -1,4 +1,5 @@
 import Product from "../modals/Product.js"
+import uploadFiles from "../utils/fileUploader.js";
 const getAllProducts = async(query) =>{
   
   // sorting
@@ -90,8 +91,9 @@ const deleteProduct = async(productId,userId)=>{
  return await Product.deleteOne({_id:productId});
 }
 
-const createProduct = async(input,userId) =>{
-  const product = await Product.create({...input,createdBy:userId})
+const createProduct = async(input,files,userId) =>{
+  const uploadedFiles = await uploadFiles(files);
+  const product = await Product.create({...input,imageUrl:uploadedFiles.map((item)=> item.url),createdBy:userId})
   return product;
 }
 export default {createProduct,getAllProducts,getProductById,updateProduct,deleteProduct,getBrands,getCategories};

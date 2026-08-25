@@ -66,7 +66,7 @@ const deleteProduct = async(req,res)=>{
 
 const createProduct = async(req,res)=>{
   try {
-    const createdProduct = await productServices.createProduct(req.body, req.user._id)
+    const createdProduct = await productServices.createProduct(req.body,req.files,req.user._id)
     res.status(201).json(createdProduct)
   } catch (error) {
     res.status(400).json({

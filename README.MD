@@ -93,3 +93,18 @@ c. sort(): db.users.find().sort({name:-1}) -- ASC(1) | DESC(-1)
 
 ## Data validation with ZOD
 - Zod is a TypeScript-first validation library. Define a schema and parse some data with it. You'll get back a strongly typed, validated result.
+
+## File upload to cloudinary
+- A platform which is used to store video,images and other files
+- File are stored in bucket
+- Storage (cloud bucket to store assets/media files)
+- Input Type: multipart/form-data
+- Multipart/form-data handler: Multer
+
+### File upload process
+1. When a file(with or without additional data) sent through frontend/postman as multipart/form-data multer handle it.
+2. Multer temporarily store the file in local folder or in RAM.
+3. Upload the temporary file to cloudinary.
+4. After successfull upload cloudinary provide public url.
+5. Store this public url to database.
+6. Remove the temprorily file.
