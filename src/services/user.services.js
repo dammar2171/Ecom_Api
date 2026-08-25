@@ -10,16 +10,7 @@ const getUserById = async(id)=>{
 }
 
 const createUser = async(input)=>{
-    const user = await User.create({
-      name:input.name,
-      email:input.email,
-      phone:input.phone,
-      address:{
-        city:input.address.city,
-        province:input.address.province,
-        tole:input.address.tole,
-      }
-    })
+    const user = await User.create(input)
     return user;
 }
 

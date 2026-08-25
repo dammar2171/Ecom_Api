@@ -3,7 +3,9 @@ import mongoose from "mongoose";
 const productModel = new mongoose.Schema({
   name:{
     type:String,
-    required:[true,"Product name is required."]
+    required:[true,"Product name is required."],
+    min:3,
+    max:50
   },
   brand:{
     type:String,
@@ -15,12 +17,16 @@ const productModel = new mongoose.Schema({
   },
   price:{
     type:Number,
-    required:[true,"Product price is required."]
+    required:[true,"Product price is required."],
+    min:1,
+    max:99999999
+  },
+  stock:{
+    type:Number,
+    default:1
   },
   description:String,
-  imageUrl:[{
-    type:String
-  }],
+  imageUrl:[String],
   createdAt:{
     type:Date,
     default:Date.now()

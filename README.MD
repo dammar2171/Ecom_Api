@@ -90,3 +90,6 @@ c. sort(): db.users.find().sort({name:-1}) -- ASC(1) | DESC(-1)
 5. 5xx - 599  (Server Error)
 - 500 (Internal Server Error)
 - 502 (Bad gateway)
+
+## Data validation with ZOD
+- Zod is a TypeScript-first validation library. Define a schema and parse some data with it. You'll get back a strongly typed, validated result.

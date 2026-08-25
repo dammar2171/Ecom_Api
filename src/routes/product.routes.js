@@ -2,6 +2,9 @@ import express from 'express'
 import productControllers from '../controllers/product.controllers.js';
 import authMiddleware from '../middlewares/authMiddleware.js';
 import authRoleBased from '../middlewares/authRoleBased.js';
+import validate from '../middlewares/validator.js';
+import { productSchema } from '../lib/schemas/product.schema.js';
+
 const router = express.Router();
 
 
@@ -16,6 +19,6 @@ router.put("/:id", authMiddleware, authRoleBased,productControllers.updateProduc
 
 router.delete("/:id", authMiddleware,authRoleBased,productControllers.deleteProduct);
 
-router.post("/",authMiddleware,authRoleBased,productControllers.createProduct);
+router.post("/",validate(productSchema),authMiddleware,authRoleBased,productControllers.createProduct);
 
 export default router;

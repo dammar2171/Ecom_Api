@@ -1,4 +1,6 @@
-import mongoose, { Types } from "mongoose";
+import mongoose from "mongoose";
+import { emailRegex } from "../constants/regex.js";
+import { ROLE_ADMIN, ROLE_CUSTOMER, ROLE_MERCHANT } from "../constants/roles.js";
 
 const userModel = new mongoose.Schema({
   name:{
@@ -15,11 +17,13 @@ const userModel = new mongoose.Schema({
     unique:true,
     trim:true,
     lowercase:true,
-    match:[/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,"Please filled a valid email address."]
+    match:[emailRegex,"Please filled a valid email address."]
   },
   password:{
     type:String,
     required:[true,"Password is required."],
+    min:6,
+    max:100
   },
   phone:{
     type:String,
@@ -38,12 +42,16 @@ const userModel = new mongoose.Schema({
   },
   role:{
     type:String,
-    enum:["COSTUMER","MERCHANT","ADMIN","SUPER_ADMIN"],
-    default:"COSTUMER",
+    enum:[ROLE_CUSTOMER,ROLE_MERCHANT,ROLE_ADMIN],
+    default:"CUSTOMER",
   },
   createdAt:{
     type:Date,
     default:Date.now(),
+  },
+  isActive:{
+    type:Boolean,
+    default:true,
   }
 });
 
