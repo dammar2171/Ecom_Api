@@ -34,7 +34,7 @@ app.get("/",(req,res)=>{
 
 
 // all routes
-app.use("/api/users",userRouters);
+app.use("/api/users",upload.single("image"),userRouters);
 app.use("/api/products",upload.array("images",5),productRouters);
 app.use("/api/auth/",authRouters);
 

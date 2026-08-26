@@ -58,7 +58,7 @@ const getProductById = async(id) =>{
   return product;
 }
 
-const updateProduct = async(productId,input,userId)=>{
+const updateProduct = async(productId,data,userId,files)=>{
   const product = await Product.findOne({_id:productId});
 
   if(!product){
@@ -74,7 +74,13 @@ const updateProduct = async(productId,input,userId)=>{
       message:"Unauthorized!"
     }
   }
-  return await Product.findByIdAndUpdate(productId,input,{new:true})
+  const updatedData = data;
+  if(files && files.length > 0){
+    const uploadedFiles = await uploadFiles(files);
+    updatedData.imageUrl = uploadedFiles.map((item)=> item.url)
+  }
+  
+  return await Product.findByIdAndUpdate(productId,updatedData,{new:true})
 }
 
 const deleteProduct = async(productId,userId)=>{
