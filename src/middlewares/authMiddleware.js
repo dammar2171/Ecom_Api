@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken';
 import config from '../config/config.js';
 
 const authMiddleware = (req,res,next) =>{
+  console.log(req.body)
   const authHeader = req.headers.cookie;  
   if(!authHeader){
     res.status(404).json({message:"Token missing!"})

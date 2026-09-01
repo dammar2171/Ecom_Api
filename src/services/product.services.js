@@ -102,4 +102,5 @@ const createProduct = async(input,files,userId) =>{
   const product = await Product.create({...input,imageUrl:uploadedFiles.map((item)=> item.url),createdBy:userId})
   return product;
 }
+
 export default {createProduct,getAllProducts,getProductById,updateProduct,deleteProduct,getBrands,getCategories};

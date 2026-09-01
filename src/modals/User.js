@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 import { emailRegex } from "../constants/regex.js";
 import { ROLE_ADMIN, ROLE_CUSTOMER, ROLE_MERCHANT } from "../constants/roles.js";
-import { string } from "zod";
 
 const userModel = new mongoose.Schema({
   name:{
@@ -39,7 +38,7 @@ const userModel = new mongoose.Schema({
       required:[true,"City required."],
     },
     province:String,
-    tole:String
+    street:String
   },
   role:{
     type:String,

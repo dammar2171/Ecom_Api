@@ -9,6 +9,7 @@ import connectCloudinary from './config/cloudinary.js';
 import userRouters from './routes/user.routes.js';
 import productRouters from './routes/product.routes.js';
 import authRouters from './routes/auth.routes.js';
+import orderRouter from './routes/order.routes.js'
 import logger from './middlewares/loggerMiddleware.js';
 
 const app = express();
@@ -37,6 +38,7 @@ app.get("/",(req,res)=>{
 app.use("/api/users",upload.single("image"),userRouters);
 app.use("/api/products",upload.array("images",5),productRouters);
 app.use("/api/auth/",authRouters);
+app.use("/api/order",orderRouter);
 
 app.listen(config.port,()=>{
   console.log(`Server running on port ${config.port}...`);
