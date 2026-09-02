@@ -13,7 +13,7 @@ const registerSchema = z.object({
   
   email:z.email({error:(email)=> email.input ? "Invalid email address" : "Email is required" }).trim().check(z.minLength(6),z.maxLength(100),z.regex(emailRegex)),
 
-  password:z.string({error:"Password is required"}).trim().check(z.minLength(6),z.maxLength(100),z.regex(passwordRegex,{error:"Password must container upper,lower,special symbol anmust be greater than 6 character"})),
+  password:z.string({error:"Password is required"}).trim().check(z.minLength(6),z.maxLength(100),z.regex(passwordRegex,{error:"Password must container upper,lower,special symbol and must be greater than 6 character"})),
 
   phone:z.string({error:"Phone is required"}).trim().check(z.minLength(6),z.maxLength(15)),
 
@@ -25,7 +25,16 @@ const loginSchema = z.object({
 
   phone:z.string().trim().check(z.minLength(6),z.maxLength(15)).optional(),
 
-  password:z.string({error:"Password is required"}).trim().check(z.minLength(6),z.maxLength(100),z.regex(passwordRegex,{error:"Password must container upper,lower,special symbol anmust be greater than 6 character"})),
+  password:z.string({error:"Password is required"}).trim().check(z.minLength(6),z.maxLength(100),z.regex(passwordRegex,{error:"Password must container upper,lower,special symbol and must be greater than 6 character"})),
 })
 
-export {registerSchema,loginSchema,addressSchema};
+const forgotPasswordSchema = z.object({email:z.email({error:(email)=> email.input ? "Invalid email address" : "Email is required" }).trim().check(z.minLength(6),z.maxLength(100),z.regex(emailRegex))});
+
+
+const resetPasswordSchema = z.object({
+  password:z.string({error:"Password is required"}).trim().check(z.minLength(6),z.maxLength(100),z.regex(passwordRegex,{error:"Password must container upper,lower,special symbol and must be greater than 6 character"})),
+  user:z.string(),
+  token:z.string()
+})
+
+export {registerSchema,loginSchema,addressSchema,forgotPasswordSchema,resetPasswordSchema};

@@ -108,3 +108,20 @@ c. sort(): db.users.find().sort({name:-1}) -- ASC(1) | DESC(-1)
 4. After successfull upload cloudinary provide public url.
 5. Store this public url to database.
 6. Remove the temprorily file.
+
+
+## RESET PASSWORD
+
+### Forget password step
+1. user request for forget password.
+2. user input email address.
+3. using that email address, the should find check if email is valid, registered to the system, create password link and send this to the email.
+4. user recieve the reset password in that email address.
+
+### Reset password step
+1. user click reset password link
+2. the link contains reset-password routes with token.
+3. user input new password
+4. send request for reset password with new password with token
+5. the system verify user and token.
+6. update password. 
