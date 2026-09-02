@@ -1,5 +1,7 @@
+import formatProductPrompt from "../helpers/productPrompts.js";
 import Product from "../modals/Product.js"
 import uploadFiles from "../utils/fileUploader.js";
+import promptAi from "../utils/prompt.js";
 const getAllProducts = async(query) =>{
   
   // sorting
@@ -75,9 +77,15 @@ const updateProduct = async(productId,data,userId,files)=>{
     }
   }
   const updatedData = data;
+
   if(files && files.length > 0){
     const uploadedFiles = await uploadFiles(files);
     updatedData.imageUrl = uploadedFiles.map((item)=> item.url)
+  }
+
+  if(!data.description){
+    const descriptionPrompt = formatProductPrompt(data);
+    updatedData.description = await promptAi(descriptionPrompt);
   }
   
   return await Product.findByIdAndUpdate(productId,updatedData,{new:true})
@@ -99,8 +107,14 @@ const deleteProduct = async(productId,userId)=>{
 
 const createProduct = async(input,files,userId) =>{
   const uploadedFiles = await uploadFiles(files);
-  const product = await Product.create({...input,imageUrl:uploadedFiles.map((item)=> item.url),createdBy:userId})
-  return product;
+
+  let description = input.description;
+  if(!input.description){
+    const descriptionPrompt = formatProductPrompt(input);
+    description = await promptAi(descriptionPrompt);
+  }
+
+  return await Product.create({...input,imageUrl:uploadedFiles.map((item)=> item.url),createdBy:userId,description})
 }
 
 export default {createProduct,getAllProducts,getProductById,updateProduct,deleteProduct,getBrands,getCategories};

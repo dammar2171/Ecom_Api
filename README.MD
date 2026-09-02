@@ -124,4 +124,6 @@ c. sort(): db.users.find().sort({name:-1}) -- ASC(1) | DESC(-1)
 3. user input new password
 4. send request for reset password with new password with token
 5. the system verify user and token.
-6. update password. 
+6. update password.
+
+

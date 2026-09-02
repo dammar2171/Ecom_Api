@@ -5,7 +5,7 @@ const productModel = new mongoose.Schema({
     type:String,
     required:[true,"Product name is required."],
     min:3,
-    max:50
+    max:100
   },
   brand:{
     type:String,

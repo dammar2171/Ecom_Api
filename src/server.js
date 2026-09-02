@@ -11,6 +11,7 @@ import productRouters from './routes/product.routes.js';
 import authRouters from './routes/auth.routes.js';
 import orderRouter from './routes/order.routes.js'
 import logger from './middlewares/loggerMiddleware.js';
+import promptAi from './utils/prompt.js';
 
 const app = express();
 const upload = multer({storage:multer.memoryStorage(),limits:{fileSize:5000000}}) // 5mb
@@ -39,6 +40,7 @@ app.use("/api/users",upload.single("image"),userRouters);
 app.use("/api/products",upload.array("images",5),productRouters);
 app.use("/api/auth/",authRouters);
 app.use("/api/order",orderRouter);
+
 
 app.listen(config.port,()=>{
   console.log(`Server running on port ${config.port}...`);
